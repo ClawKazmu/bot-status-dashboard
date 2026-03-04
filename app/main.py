@@ -174,9 +174,9 @@ async def dashboard():
             }
         }
 
-        // Initial fetch + refresh every 30s
+        // Initial fetch + refresh every 30 minutes (matching heartbeat)
         fetchStatus();
-        setInterval(fetchStatus, 30000);
+        setInterval(fetchStatus, 1800000);
     </script>
 </body>
 </html>
