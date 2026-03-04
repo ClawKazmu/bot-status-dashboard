@@ -6,6 +6,7 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from datetime import datetime
 import os
+import json
 from typing import Dict, Any
 
 app = FastAPI(title="Bot Status Dashboard", version="1.0.0")
@@ -35,7 +36,11 @@ async def update_status(request: Request):
     if not auth.startswith("Bearer ") or auth.split(" ")[1] != UPDATE_TOKEN:
         raise HTTPException(status_code=401, detail="Invalid token")
 
-    payload = await request.json()
+    try:
+        payload = await request.json()
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=400, detail="Invalid JSON")
+
     source = payload.get("source")
     data = payload.get("data")
 
