@@ -1,7 +1,8 @@
 {
   "$schema": "https://railway.app/railway.schema.json",
   "build": {
-    "builder": "railpack"
+    "builder": "railpack",
+    "preBuild": "python -m pip install --upgrade pip setuptools wheel"
   },
   "deploy": {
     "startCommand": "uvicorn app.main:app --host 0.0.0.0 --port $PORT",
